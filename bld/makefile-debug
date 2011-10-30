@@ -1,0 +1,14 @@
+CFLAGS = $(FLAGS) -O0 -g
+LDFLAGS = $(FLAGS) -O0
+OBJDIR = dobj
+
+CFILES =             \
+	main.c       \
+	log.c        \
+	openhash.c   \
+	cuckoohash.c
+
+EXES = $(EXEDIR)/super-debug
+
+include makefile-generic
+

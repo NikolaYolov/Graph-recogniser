@@ -1,0 +1,47 @@
+CC = gcc
+RM = rm -rf
+
+FLAGS = -Wall -Wextra -Werror -Wno-unused-variable -std=gnu99
+#CFLAGS = $(FLAGS) -O0 -g Moved to derived
+#LDFLAGS = $(FLAGS) -O0 Moved to derived
+LD = $(CC)
+LDLIBS =
+#OBJDIR = obj Moved to derived
+SRCDIR = ../src
+EXEDIR = ..
+
+SOURCES = $(patsubst %,$(SRCDIR)/%, $(CFILES))
+OBJS = $(patsubst %,$(OBJDIR)/%, $(subst .c,.o, $(CFILES)))
+DEPEND = $(patsubst %,$(OBJDIR)/%, $(subst .c,.d, $(CFILES)))
+
+#Moved to derived
+#CFILES =            \
+	main.c       \
+	log.c        \
+	openhash.c   \
+	cuckoohash.c
+
+#Moved to derived
+#EXES = super
+
+all: $(EXES)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+include $(DEPEND)
+
+$(OBJDIR)/%.d: $(SRCDIR)/%.c
+	mkdir -p $(OBJDIR)
+	$(CC) -MM $(CFLAGS) $< > $@.$$$$;                              \
+	sed 's,\($*\)\.o[ :]*,$(OBJDIR)/\1.o $@ : ,g' < $@.$$$$ > $@;  \
+	rm -f $@.$$$$
+
+$(EXES): $(OBJS)
+	$(LD) $(LDFLAGS) $(OBJS) -o $(EXES)
+
+clean:
+	$(RM) $(OBJS) $(EXES) $(DEPEND)
+
+.PHONY: all clean
+
