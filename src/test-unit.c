@@ -3,7 +3,6 @@
 #include "log.h"
 
 int main() {
-	unsigned i;
         change_log_priority(OPEN_HASH_LOG, 11);
         change_log_priority(CUCKOO_HASH_LOG, 11);
 

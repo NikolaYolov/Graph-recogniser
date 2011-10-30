@@ -20,7 +20,7 @@ static struct log_info {
 	char prefix[0x7f];
 	char suffix[0x7f];
 	/* not implemented */
-	/* FILE* file; */
+	/* FILE *file; */
 } log_info_table[HASH_TYPE_COUNT] = {
 	/* log type */         /* priority */ /* prefix*/               /* suffix */
 	/* LOG_LOG */           { 0,             "log log:\t",             "\n", },
@@ -29,7 +29,7 @@ static struct log_info {
 	/* CUCKOO_HASH_LOG */   { 0,             "cuckoo hash table:\t",   "\n", },
 };
 
-static inline void print_log(FILE* file, const char *format, va_list args) {
+static inline void print_log(FILE *file, const char *format, va_list args) {
 	vfprintf(file, format, args);
 }
 
